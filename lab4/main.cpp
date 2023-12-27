@@ -163,23 +163,29 @@ float calculate_vector(char xyz, float u, float v)
         if (xyz == 'x')
         {
             normal = (calculate("uy", u, v) * calculate("vz", u, v)) - (calculate("uz", u, v) * calculate("vy", u, v));
-            normal = normal / calculate("x", u, v);
         }
         if (xyz == 'y')
         {
             normal = (calculate("uz", u, v) * calculate("vx", u, v)) - (calculate("ux", u, v) * calculate("vz", u, v));
-            normal = normal / calculate("y", u, v);
         }
         if (xyz == 'z')
         {
             normal = (calculate("ux", u, v) * calculate("vy", u, v)) - (calculate("uy", u, v) * calculate("vx", u, v));
-            normal = normal / calculate("z", u, v);
         }
 
         return normal;
     }
 
     return NULL;
+}
+
+/*************************************************************************************/
+
+// Funkcja normalizujaca dlugosci wektorow normalnych
+
+float normalize_vector(float x, float y, float z) 
+{
+    return sqrt(powf(x, 2) + powf(y, 2) + powf(z, 2));
 }
 
 /*************************************************************************************/
@@ -213,21 +219,34 @@ void egg_2(void)
             float x = 0.0;
             float y = 0.0;
             float z = 0.0;
+            float normalized = 0.0;
 
             // Pierwszy trojkat
             x = calculate_vector('x', u0, v0);
             y = calculate_vector('y', u0, v0);
             z = calculate_vector('z', u0, v0);
+            normalized = normalize_vector(x, y, z);
+            x = x / normalized;
+            y = y / normalized;
+            z = z / normalized;
             glNormal3f(x, y, z);
             glVertex3f(calculate("x", u0, v0), calculate("y", u0, v0), calculate("z", u0, v0));
             x = calculate_vector('x', u1, v1);
             y = calculate_vector('y', u1, v1);
             z = calculate_vector('z', u1, v1);
+            normalized = normalize_vector(x, y, z);
+            x = x / normalized;
+            y = y / normalized;
+            z = z / normalized;
             glNormal3f(x, y, z);
             glVertex3f(calculate("x", u1, v1), calculate("y", u1, v1), calculate("z", u1, v1));
             x = calculate_vector('x', u2, v2);
             y = calculate_vector('y', u2, v2);
             z = calculate_vector('z', u2, v2);
+            normalized = normalize_vector(x, y, z);
+            x = x / normalized;
+            y = y / normalized;
+            z = z / normalized;
             glNormal3f(x, y, z);
             glVertex3f(calculate("x", u2, v2), calculate("y", u2, v2), calculate("z", u2, v2));
 
@@ -235,16 +254,28 @@ void egg_2(void)
             x = calculate_vector('x', u1, v1);
             y = calculate_vector('y', u1, v1);
             z = calculate_vector('z', u1, v1);
+            normalized = normalize_vector(x, y, z);
+            x = x / normalized;
+            y = y / normalized;
+            z = z / normalized;
             glNormal3f(x, y, z);
             glVertex3f(calculate("x", u1, v1), calculate("y", u1, v1), calculate("z", u1, v1));
             x = calculate_vector('x', u3, v3);
             y = calculate_vector('y', u3, v3);
             z = calculate_vector('z', u3, v3);
+            normalized = normalize_vector(x, y, z);
+            x = x / normalized;
+            y = y / normalized;
+            z = z / normalized;
             glNormal3f(x, y, z);
             glVertex3f(calculate("x", u3, v3), calculate("y", u3, v3), calculate("z", u3, v3));
             x = calculate_vector('x', u2, v2);
             y = calculate_vector('y', u2, v2);
             z = calculate_vector('z', u2, v2);
+            normalized = normalize_vector(x, y, z);
+            x = x / normalized;
+            y = y / normalized;
+            z = z / normalized;
             glNormal3f(x, y, z);
             glVertex3f(calculate("x", u2, v2), calculate("y", u2, v2), calculate("z", u2, v2));
         }
@@ -252,7 +283,6 @@ void egg_2(void)
 
     glEnd();
 }
-
 
 /*************************************************************************************/
 
